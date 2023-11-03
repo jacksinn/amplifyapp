@@ -1,9 +1,9 @@
 import React from 'react'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
-
+import './EmailForm.scss'
 const EmailForm = () => {
   return (
-    <div>
+    <div className={'email-form'}>
       <Formik
         initialValues={{ email: '', password: '' }}
         validate={values => {
