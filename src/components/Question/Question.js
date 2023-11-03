@@ -1,7 +1,7 @@
 import React from 'react'
 import './Question.scss'
 
-const Question = ({question, hide}) => {
+const Question = ({question, hide, setSubmit}) => {
   const { text, options } = question;
   const values = options.values;
 
@@ -12,8 +12,8 @@ const Question = ({question, hide}) => {
       return (
         <div>
           {values.map((option) => (
-            <div>
-              <input type='radio' name={question.id} id={option} value={option} />
+            <div key={option}>
+              <input type='radio' name={question.id} id={option} value={option} onClick={setSubmit} />
               <label for={option}>{option}</label>
             </div>
           ))}

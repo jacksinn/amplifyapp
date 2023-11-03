@@ -1,9 +1,18 @@
 import React from 'react'
 import Question from './Question'
 
+// type UserAnswers = [
+//     {
+//         questionId: number,
+//         answer: string
+//     }
+// ]
 const Questionnaire = () => {
     const firstQuestion = 1;
     const [currentQuestion, setCurrentQuestion] = React.useState(firstQuestion);
+    const [userAnswers, setUserAnswers] = React.useState([]); // type UserAnswers = [
+    const [allowSubmit, setAllowSubmit] = React.useState(false);
+
     const displayQuestion = (questionId) => {
         setCurrentQuestion(questionId);
     }
@@ -12,6 +21,7 @@ const Questionnaire = () => {
         {
             id: 1,
             text: 'What is the capital of France?',
+            helpText: 'Rate: 1 (very bad) - 10 (very good)',
             options: {
                 type: 'radio',
                 values: [
@@ -26,6 +36,7 @@ const Questionnaire = () => {
         {
             id: 2,
             text: 'Who is CEO of Tesla?',
+            helpText: 'Rate: 1 (strongly disagree) - 10 (strongly agree)',
             options: {
                 type: 'radio',
                 values: [
@@ -69,11 +80,13 @@ const Questionnaire = () => {
       ];
 
     const handleNextClick = () => {
+        setAllowSubmit(false)
         const nextQuestion = questions.find(question => question.id === currentQuestion).nextQuestion;
         setCurrentQuestion(nextQuestion);
     }
 
     const handlePreviousClick = () => {
+        setAllowSubmit(false)
         const nextQuestion = questions.find(question => question.id === currentQuestion).previousQuestion;
         setCurrentQuestion(nextQuestion);
     }
@@ -100,6 +113,10 @@ const Questionnaire = () => {
         }
     }
 
+    const setSubmit = () => {
+        setAllowSubmit(true)
+    }
+
     // questions.map((question) => (
     //   console.log(question)
     // ))
@@ -109,9 +126,10 @@ const Questionnaire = () => {
       <h1>My Component</h1>
       <ul>
         {questions.map(question => (
-          <Question key={question.id} question={question} hide={question.id !== currentQuestion}/>
+          <Question key={question.id} setSubmit={setSubmit} question={question} hide={question.id !== currentQuestion}/>
         ))}
       </ul>
+        <button disabled={!allowSubmit}>Submit</button>
         {showPreviousButton()}
         {showNextButton()}
     </div>
