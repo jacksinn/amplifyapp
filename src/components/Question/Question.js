@@ -1,11 +1,11 @@
 import React from 'react'
 import './Question.scss'
 
-const Question = ({question, hide, setSubmit}) => {
-  const { text, options } = question;
-  const values = options.values;
+const Question = ({ question, hide, setSubmit }) => {
+  const { text, options } = question
+  const values = options.values
 
-  const hideClass = hide ? 'hide' : '';
+  const hideClass = hide ? 'hide' : ''
 
   const answerDisplay = () => {
     if (options.type === 'radio') {
